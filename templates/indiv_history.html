@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Chat Room</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<stle></stle>
+<body>
+<h1>Logged in as: {{ user }}</h1>
+<button id="logout"><a href="{{ url_for('logout') }}">Logout</a></button>
+<button id="logout"><a href="{{ url_for('index') }}">Chat</a></button>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var user = '{{ user }}'
+	var socket = io.connect('http://0.0.0.0:4000');
+	socket.on('connect', function() {
+		// socket.send(user + ' has connected!');
+	});
+	socket.on('message', function(msg) {
+		$("#messages").append('<li>'+msg+'</li>');
+		console.log('Received message');
+	});
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
+});
+</script>
+<ul class="list-group" id="messages">
+    {% for each in indiv_history %}
+    <li class="list-group-item">{{ each[0] }}: {{ each[1] }}</li>
+    {% endfor %}
+</ul>
+<!--<input type="text" name="newMessage" id="myMessage">-->
+<!--<button id="sendbutton">Send</button>-->
+<a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

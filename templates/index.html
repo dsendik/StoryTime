@@ -1,0 +1,275 @@
+<html>
+<head>
+    <title>Chat Room</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
+</head>
+<style>
+    body{
+        background-color: whitesmoke;
+    }
+    #logout, a, a:hover, a:visited{
+        text-decoration: none;
+        color: black;
+    }
+    .navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+    #usernames{
+        color: black;
+    }
+    #spacer{
+        margin-top: 20px;
+    }
+    .py-5 bg-dark{
+        width: 100%;
+    }
+    /*h1,h5,p,a{*/
+        /*color: white;*/
+    /*}*/
+    #user-col{
+        display: inline-block;
+        margin-left: 30px;
+        height: 40px;
+        color: white;
+        text-align: center;
+        background-color: white;
+        border-style: solid;
+        border-color: lightgrey;
+        border-width: thin;
+    }
+    #user-text{
+        color: white;
+    }
+    #msg-col{
+        display: inline-block;
+    }
+    #myMessage {
+        height: 170px;
+    }
+    #messages{
+    }
+
+    #sendbutton{
+        width: 50px;
+        float: right;
+    }
+
+    .rounded-circle{
+        height: 65px;
+    }
+    #logo{
+        display: inline-block;
+    }
+    #profile{
+        margin-top: 15px;
+        margin-left: 0px;
+    }
+    #prompt-text{
+        max-height: 270px;
+    }
+    	#landing-wrapper {
+    display:table;
+    width:100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) ), url('https://pixabay.com/get/e837b50a2efd013ed1534705fb0938c9bd22ffd41cb511459df3c87ca7/books-1245690_1920.jpg');
+    background-position:center top;
+    height:350px;
+		overflow: hidden;
+}
+    /*body{*/
+        /*background-attachment:fixed;*/
+        /*background-image: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url("https://pixabay.com/get/e83db7062ef5073ed1534705fb0938c9bd22ffd41cb5114497f8c578a1/bookcase-1869616_1920.jpg");*/
+
+    /*}*/
+</style>
+<body>
+
+<div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">Home</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <a href="#" class="nav-item active nav-link">Page 1</a>
+                <a href="#" class="nav-item active nav-link">Page 2</a>
+
+<!--THIS IS A DROPDOWN MENU ON NAVBAR-->
+                <!--<li class="nav-item dropdown">-->
+                    <!--<a href="#" class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">dropdown</a>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                        <!--<a href="#" class="dropdown-item">dropdown</a>-->
+                        <!--<a href="#" class="dropdown-item">dropdown</a>-->
+                        <!--<a href="#" class="dropdown-item">dropdown</a>-->
+                    <!--</div>-->
+                <!--</li>-->
+</ul>
+
+        </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong>{{ user }}</strong>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="text-left"><strong>{{ user }}</strong></p>
+                                        <p class="text-left small">{{ user }}@email.com</p>
+                                        <p class="text-left">
+                                            <a href="{{ url_for('indiv_history',indiv=user)}}" class="btn btn-primary btn-block btn-sm">My Writing</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-block">Logout</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                </ul>
+                    <div>
+            <!----THIS IS THE SEARCH IN THE NAVBAR, COMMENTED OUT CURRENTLY-->
+            <form action="{{ url_for('search_results') }}" method="POST" class="form-inline my-2 mylg-0">
+                <input type="search" name="search" id="search" class="form-control mr-sm-2" placeholder="search" aria-label="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            </div>
+    </nav>
+</div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var user = '{{ user }}'
+            var socket = io.connect('http://0.0.0.0:4000');
+            socket.on('connect', function() {
+                // socket.send(user + ' has connected!');
+            });
+            socket.on('message', function(msg) {
+                $("#messages").append('<div id="spacer"></div><li class="list-group-item"><a id="usernames" href="{{ url_for("indiv_history", indiv=user) }}"><b>'+user+'</b></a><br> '+msg+'</li>');
+                console.log('Received message');
+            });
+            $('#sendbutton').on('click', function() {
+                socket.send($('#myMessage').val());
+                $('#myMessage').val('');
+            });
+        });
+    </script>
+
+
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h1 class="my-4">Featured Stories
+            <small></small>
+        </h1>
+
+    {% for each in list_IDs %}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ url_for('indiv_story',storyID=list_IDs[loop.index0]) }}">
+                    <img class="img-fluid rounded mb-3 mb-md-0" src="{{ story_img[loop.index0] }}" alt="" width="500">
+                </a>
+            </div>
+            <div class="col-md-6">
+                <div id="prompt-text">
+                    <h5>{{ list_prompts[loop.index0] }}</h5>
+                </div>
+                <h7><a href src="">#hashtags</a></h7>
+                <h7><a href src="">#go</a></h7>
+                <h7><a href src="">#here</a></h7>
+
+
+                <div id="buttons">
+                    <a class="btn btn-outline-success" href="{{ url_for('indiv_story',storyID=list_IDs[loop.index0]) }}">Write</a>
+                    <a class="btn btn-outline-success" href="{{ url_for('indiv_story',storyID=list_IDs[loop.index0], sketches=list_sketches) }}">Illustrate</a>
+                    <a class="btn btn-outline-success" href="{{ url_for('indiv_story',storyID=list_IDs[loop.index0]) }}">Read</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    {% endfor %}
+
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <!--<footer class="py-5 bg-dark">-->
+    <!--<div class="container">-->
+    <!--<p class="m-0 text-center text-white">Copyright &copy; StoryTime 2018</p>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; /.container &ndash;&gt;-->
+    <!--</footer>-->
+</div>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
