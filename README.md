@@ -17,13 +17,3 @@ StoryTime is an application where amatuer writers can make use of interesting pr
 ## Authors
 
 * **Dan Sendik** - *Initial work*
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project does not require any licenses
-
-## Acknowledgments
-
-* Hat tip to me, since I did the development work
