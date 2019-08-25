@@ -7,11 +7,11 @@ StoryTime is an application where amatuer writers can make use of interesting pr
 ## Built With
 
 * [Python3](https://docs.python.org/3/) - The programming language used
-* [Flask] (https://www.fullstackpython.com/flask.html) - A Python web framework
-* [Django] (https://docs.djangoproject.com/en/2.2/) - Front-end framework
-* [JQuery] (https://api.jquery.com/) - A JavaScript library
-* [Bootstrap] (https://getbootstrap.com/docs/4.1/getting-started/introduction/) - A JavaScript library
-* [SQLite3] (https://www.sqlite.org/index.html) - Lightweight Relational Database
+* [Flask](https://www.fullstackpython.com/flask.html) - A Python web framework
+* [Django](https://docs.djangoproject.com/en/2.2/) - Front-end framework
+* [JQuery](https://api.jquery.com/) - A JavaScript library
+* [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) - A JavaScript library
+* [SQLite3](https://www.sqlite.org/index.html) - Lightweight Relational Database
 
 
 ## Authors
